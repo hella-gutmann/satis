@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of composer/satis.
  *
@@ -44,7 +46,7 @@ class WebBuilderDumpTest extends TestCase
         $this->root = $this->setFileSystem();
     }
 
-    protected function setFileSystem()
+    protected function setFileSystem(): vfsStreamDirectory
     {
         vfsStreamWrapper::register();
         $root = vfsStream::newDirectory('build');
@@ -61,8 +63,8 @@ class WebBuilderDumpTest extends TestCase
 
         $html = $this->root->getChild('build/index.html')->getContent();
 
-        $this->assertRegExp('/<title>dummy root package Composer repository<\/title>/', $html);
-        $this->assertRegExp('{<h3 id="[^"]+" class="panel-title package-title">\s*<a href="#vendor/name" class="anchor">\s*<svg[^>]*>.+</svg>\s*vendor/name\s*</a>\s*</h3>}si', $html);
+        $this->assertMatchesRegularExpression('/<title>dummy root package<\/title>/', $html);
+        $this->assertMatchesRegularExpression('{<div id="[^"]+" class="card-header[^"]+">\s*<a href="#vendor/name" class="[^"]+">\s*<svg[^>]*>.+</svg>\s*vendor/name\s*</a>\s*</div>}si', $html);
         $this->assertFalse((bool) preg_match('/<p class="abandoned">/', $html));
     }
 
@@ -75,7 +77,7 @@ class WebBuilderDumpTest extends TestCase
 
         $html = $this->root->getChild('build/index.html')->getContent();
 
-        $this->assertRegExp('/<title>A Composer repository<\/title>/', $html);
+        $this->assertMatchesRegularExpression('/<title>A<\/title>/', $html);
     }
 
     public function testDependencies()
@@ -88,13 +90,10 @@ class WebBuilderDumpTest extends TestCase
 
         $html = $this->root->getChild('build/index.html')->getContent();
 
-        $this->assertRegExp('/<a href="#dummytest">dummytest<\/a>/', $html);
+        $this->assertMatchesRegularExpression('/<a href="#dummytest">dummytest<\/a>/', $html);
     }
 
-    /**
-     * @return array
-     */
-    public function dataAbandoned()
+    public function dataAbandoned(): array
     {
         $data = [];
 
@@ -115,9 +114,8 @@ class WebBuilderDumpTest extends TestCase
      * @dataProvider dataAbandoned
      *
      * @param bool|string $abandoned
-     * @param string $expected
      */
-    public function testAbandoned($abandoned, $expected)
+    public function testAbandoned($abandoned, string $expected)
     {
         $webBuilder = new WebBuilder(new NullOutput(), vfsStream::url('build'), [], false);
         $webBuilder->setRootPackage($this->rootPackage);
@@ -126,7 +124,7 @@ class WebBuilderDumpTest extends TestCase
 
         $html = $this->root->getChild('build/index.html')->getContent();
 
-        $this->assertRegExp('/Package is abandoned, you should avoid using it/', $html);
-        $this->assertRegExp($expected, $html);
+        $this->assertMatchesRegularExpression('/Package is abandoned, you should avoid using it/', $html);
+        $this->assertMatchesRegularExpression($expected, $html);
     }
 }

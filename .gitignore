@@ -1,6 +1,9 @@
 /build/
+/node_modules/
 /vendor/
 /.php_cs.cache
+/.phpunit.result.cache
 /composer.phar
 /phpunit.xml
+/clover.xml
 /satis.phar
