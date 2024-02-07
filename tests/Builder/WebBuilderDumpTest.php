@@ -35,7 +35,7 @@ class WebBuilderDumpTest extends TestCase
     /** @var vfsStreamDirectory */
     protected $root;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->rootPackage = new RootPackage('dummy root package', 0, 0);
 

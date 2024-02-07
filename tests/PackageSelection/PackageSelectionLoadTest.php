@@ -37,7 +37,7 @@ class PackageSelectionLoadTest extends TestCase
     /** @var vfsStreamDirectory */
     protected $root;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         static $extra = [
             'branch-alias' => [

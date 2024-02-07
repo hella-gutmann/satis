@@ -44,13 +44,13 @@ class ArchiveBuilderTest extends \PHPUnit\Framework\TestCase
 
     protected $target;
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $fs = new Filesystem();
         $fs->remove($this->root);
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->root = __DIR__ . '/vfs';
         $this->home = $this->root . '/home/ubuntu';

@@ -24,7 +24,7 @@ class ArchiveBuilderHelperTest extends TestCase
     /** @var NullOutput */
     protected $output;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->output = new NullOutput();
     }

@@ -24,7 +24,7 @@ class WebBuilderTest extends TestCase
     /** @var WebBuilder */
     protected $webBuilder;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->webBuilder = new WebBuilder(new NullOutput(), 'build', [], false);
     }

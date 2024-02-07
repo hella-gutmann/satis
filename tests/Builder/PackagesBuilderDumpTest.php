@@ -31,7 +31,7 @@ class PackagesBuilderDumpTest extends TestCase
      */
     protected $root;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->root = vfsStream::setup('build');
     }
