@@ -22,9 +22,9 @@
     },
     "bin": ["bin/satis"],
     "require": {
-        "php": "^7.0",
+        "php": "^7.1",
         "composer/composer": "^1.4",
-        "twig/twig": "^1.7 || ^2.0",
+        "twig/twig": "^1.43 || ^2.0",
         "symfony/console": "^2.1 || ^3.0.4 || ^4.0"
     },
     "autoload": {
@@ -33,7 +33,7 @@
     "require-dev": {
         "phpunit/phpunit": "^6.4",
         "phpunit/phpunit-mock-objects": "^4.0",
-        "mikey179/vfsStream": "^1.6",
+        "mikey179/vfsstream": "^1.6",
         "friendsofphp/php-cs-fixer": "^2.11"
     },
     "autoload-dev": {
@@ -41,12 +41,12 @@
     },
     "config": {
         "platform": {
-            "php": "7.0"
+            "php": "7.1"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0-dev"
+            "dev-master": "1.0-dev"
         }
     }
 }
