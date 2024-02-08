@@ -14,6 +14,8 @@ namespace Composer\Satis\Builder;
 use Composer\Package\CompletePackageInterface;
 use Composer\Package\PackageInterface;
 use Composer\Package\RootPackageInterface;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * Build the web pages.
@@ -28,7 +30,7 @@ class WebBuilder extends Builder
     /** @var PackageInterface[] List of calculated required packages. */
     private $dependencies;
 
-    /** @var \Twig_Environment */
+    /** @var Environment */
     private $twig;
 
     /**
@@ -81,11 +83,11 @@ class WebBuilder extends Builder
     /**
      * Sets the twig environment.
      *
-     * @param \Twig_Environment $twig
+     * @param Environment $twig
      *
      * @return $this
      */
-    public function setTwigEnvironment(\Twig_Environment $twig)
+    public function setTwigEnvironment(Environment $twig)
     {
         $this->twig = $twig;
 
@@ -97,7 +99,7 @@ class WebBuilder extends Builder
      *
      * Creates default if needed.
      *
-     * @return \Twig_Environment
+     * @return Environment
      */
     private function getTwigEnvironment()
     {
@@ -105,8 +107,8 @@ class WebBuilder extends Builder
             $twigTemplate = $this->config['twig-template'] ?? null;
 
             $templateDir = $twigTemplate ? pathinfo($twigTemplate, PATHINFO_DIRNAME) : __DIR__ . '/../../views';
-            $loader = new \Twig_Loader_Filesystem($templateDir);
-            $this->twig = new \Twig_Environment($loader);
+            $loader = new FilesystemLoader($templateDir);
+            $this->twig = new Environment($loader);
         }
 
         return $this->twig;
