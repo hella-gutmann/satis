@@ -15,6 +15,8 @@ use Composer\Package\Package;
 use Composer\Satis\Builder\WebBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Output\NullOutput;
+use Twig\Environment;
+use Twig\Loader\ArrayLoader;
 
 /**
  * @author James Hautot <james@rezo.net>
@@ -55,7 +57,7 @@ class WebBuilderTest extends TestCase
 
     public function testTwigEnvironment()
     {
-        $twig = new \Twig_Environment(new \Twig_Loader_Array([]));
+        $twig = new Environment(new ArrayLoader([]));
         $this->webBuilder->setTwigEnvironment($twig);
 
         $reflection = new \ReflectionClass($this->webBuilder);
@@ -71,7 +73,7 @@ class WebBuilderTest extends TestCase
         $method = $reflection->getMethod('getTwigEnvironment');
         $method->setAccessible(true);
 
-        $this->assertInstanceOf('\Twig_Environment', $method->invoke($this->webBuilder));
+        $this->assertInstanceOf('\Twig\Environment', $method->invoke($this->webBuilder));
     }
 
     public function testTwigTemplate()
